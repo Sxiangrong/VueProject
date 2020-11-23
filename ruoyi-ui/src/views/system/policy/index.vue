@@ -23,7 +23,7 @@
       </el-form-item>
     </el-form>
 
-    <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+    <el-table  :data="tableData" style="width: 100%" >
       <el-table-column prop="id" label="序号" width="180"></el-table-column>
     <el-table-column prop="itemEvent" label="申请事项" width="180"></el-table-column>
     <el-table-column prop="money" label="申请金额（元）" width="180"></el-table-column>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+  import {listUser} from "@/api/system/user";
     export default {
         name: "index",
       data(){
@@ -52,47 +53,48 @@
               writeTime:'',
               formCompany:''
             },
-            tableData: [
-              {id:1,
-                itemEvent: '电影券发放',
-                money: '1000元',
-                peopleAccount: '100',
-                company:'天津河西区',
-                applyPeople:'张三',
-                writeTime:'2020-10-24',
-                operation:''
-            },
-              { id :2,
-                itemEvent: '观影春秋游',
-                money: '1000元',
-                peopleAccount: '100',
-                company:'天津小学',
-                applyPeople:'小明',
-                writeTime:'2020-10-24',
-                operation:''
-              },
-            ]
+            // 遮罩层
+            loading: true,
+            // tableData: [
+            //   {id:1,
+            //     itemEvent: '电影券发放',
+            //     money: '1000元',
+            //     peopleAccount: '100',
+            //     company:'天津河西区',
+            //     applyPeople:'张三',
+            //     writeTime:'2020-10-24',
+            //     operation:''
+            // },
+            //   { id :2,
+            //     itemEvent: '观影春秋游',
+            //     money: '1000元',
+            //     peopleAccount: '100',
+            //     company:'天津小学',
+            //     applyPeople:'小明',
+            //     writeTime:'2020-10-24',
+            //     operation:''
+            //   },
+            // ]
+            //观影春秋游表格数据
+            tableData:null,
           }
       },
+      created() {
+          this.getTableData()
+      },
       methods: {
-        tableRowClassName({row, rowIndex}) {
-          if (rowIndex === 1) {
-            return 'warning-row';
-          } else if (rowIndex === 3) {
-            return 'success-row';
-          }
-          return '';
+        getTableData:function () {
+          this.loading=true;
+          listUser(this.addDateRange(this.queryParams,this.dateRange)).then(response=>{
+            this.tableData=response.rows;
+            this.total=response.total;
+            this.loading=false;
+          })
         }
       },
     }
 </script>
 
 <style scoped>
-  .el-table .warning-row {
-    background: oldlace;
-  }
 
-  .el-table .success-row {
-    background: #f0f9eb;
-  }
 </style>

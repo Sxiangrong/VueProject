@@ -43,6 +43,7 @@ export default {
   },
   computed: {
     visitedViews() {
+      //取出store里的值
       return this.$store.state.tagsView.visitedViews
     },
     routes() {

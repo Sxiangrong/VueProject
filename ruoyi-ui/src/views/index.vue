@@ -24,7 +24,6 @@
       </el-col>
     </el-row>-->
     <MainContext></MainContext>
-
   </div>
 </template>
 

@@ -7,7 +7,7 @@
         <navbar />
         <tags-view v-if="needTagsView" />
       </div>
-      <app-main />
+      <app-main></app-main>
       <right-panel v-if="showSettings">
         <settings />
       </right-panel>
@@ -58,8 +58,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "~@/assets/styles/mixin.scss";
-  @import "~@/assets/styles/variables.scss";
+  @import "../../src/assets/styles/mixin.scss";
+  @import "../../src/assets/styles/variables.scss";
 
   .app-wrapper {
     @include clearfix;

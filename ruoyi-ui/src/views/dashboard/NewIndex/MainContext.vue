@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-row :gutter="32">
-      <el-col :span="4" :xs="24" :sm="24" :lg="8" v-for="(item,index) in cardText" :key="index">
+      <el-col :span="4" :xs="24" :sm="24" :lg="8" >
         <el-popover placement="right-start" width="200" trigger="hover">
-          <template v-if="item.id==1" :class="{'activeDiv':'flag'}">
+          <template >
             <div><p>观影、春/秋游类</p></div>
             <div><p>生日蛋糕券</p></div>
             <div><p>节日福利</p></div>
@@ -13,14 +13,24 @@
             <div><p>其他</p></div>
           </template>
           <el-card shadow="always" class="box fontText" slot="reference">
-            {{item.content}}
+           经费登记备案
           </el-card>
         </el-popover>
+      </el-col>
+      <el-col :span="4" :xs="24" :sm="24" :lg="8" >
+        <el-card shadow="always" class="box fontText" >
+          文件管理
+        </el-card>
+      </el-col>
+      <el-col :span="4" :xs="24" :sm="24" :lg="8" >
+        <el-card shadow="always" class="box fontText" >
+          发送通知
+        </el-card>
       </el-col>
     </el-row>
 
     <el-row :gutter="32">
-      <el-col :span="4" :xs="24" :sm="24" :lg="8" v-for="item in cardText1">
+      <el-col :span="4" :xs="24" :sm="24" :lg="8" v-for="(item,index) in cardText" :key="index">
         <el-card shadow="always" class="box fontText">
           {{item.content}}
         </el-card>
@@ -32,18 +42,6 @@
 
 <script>
   let cardText=[
-    {
-      id:1,
-      content:"经费登记备案"
-    },{
-      id:2,
-      content:"文件管理"
-    },{
-      id:3,
-      content:"发送通知"
-    }
-  ]
-  let cardText1=[
   {
     id:1,
     content:"基层工会"
@@ -61,33 +59,11 @@
         data(){
           return{
             cardText:cardText,
-            cardText1:cardText1,
-            showContext:false,
-            flag:true,
-            showText: false,
-            hideText: true
-
           }
       },
 
     methods:{
-       /*isShow :function (event) {
-           let _el=event.currentTarget;
-         if (_el.getAttribute('class') === 'activeDiv') {
-           _el.setAttribute('class', '')
-         } else {
-           _el.setAttribute('class', 'activeDiv')		//如果不存在添加active属性,隐藏该节点
-         }
 
-       }*/
-      overShow () {
-        this.showText = !this.showText;
-        this.hideText = !this.hideText;
-      },
-      outHide () {
-        this.showText = !this.showText;
-        this.hideText = !this.hideText;
-      }
     }
 
     }
