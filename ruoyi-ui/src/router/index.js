@@ -7,6 +7,7 @@ Vue.use(Router)
 import Layout from '@/layout'
 //政策法规加载项
 import lawsIndex from "../views/lawspolicy/lawsIndex";
+import info from "../views/info/info";
 
 /**
  * Note: 路由配置项
@@ -70,28 +71,63 @@ export const constantRoutes = [
   {
     path: '',
     component: Layout,
-    redirect: 'index',
     children: [
       {
         path: '/lawsIndex',
         component: (resolve) => require(['@/views/lawspolicy/lawsIndex'], resolve),
         name: '政策法规文件',
-        meta: { title: '政策法规文件', icon: 'guide', noCache: true, affix: false },
+        //meta: { title: '政策法规文件', icon: 'guide', noCache: true, affix: false,breadcrumb: true },
       },
     ]
   },
   {
     path: '',
     component: Layout,
-    redirect: 'index',
     children: [
       {
         path: '/funds',
         component: (resolve) => require(['@/views/tool/settingfunds/funds'], resolve),
-        name: '工会经费设置',
-        meta: { title: '工会经费设置', icon: 'tool', noCache: true, affix: false }
+        name:'工会经费设置',
+        hidden: true
       },
     ]
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
+        path: '/settingInfo',
+        component: (resolve) => require(['../../src/views/Settinginfo/settingInfo'], resolve),
+        name:'会议活动通知管理',
+        hidden: true
+      },
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
+        path: '/specialuser',
+        component: (resolve) => require(['../../src/views/specialuser/userindex'], resolve),
+        name: '特殊用户管理',
+        hidden: true
+      },
+    ]
+  },
+  {
+    path:'',
+    component:Layout,
+    children: [
+      {
+        path: '/info',
+        component: (resolve) => require(['../../src/views/info/info'], resolve),
+        name:'基金工会信息',
+        hidden: true
+      }
+    ]
+
   },
   {
     path: '/user',
@@ -146,23 +182,6 @@ export const constantRoutes = [
       }
     ]
   },
-/*  {
-    path:'/lawsIndex',
-    component:lawsIndex ,
-    hidden: true,
-    children: [
-      {
-        path :'useMoney',
-        name:'useMoney',
-        component:()=>import('../views/lawspolicy/laws/SecContent/useMoney')
-      },
-      {
-        path:'aidPolicy',
-        name:'aidPolicy',
-        component:()=>import('../views/lawspolicy/laws/SecContent/aidPolicy')
-      }
-    ]
-  },*/
 ]
 
 export default new Router({
