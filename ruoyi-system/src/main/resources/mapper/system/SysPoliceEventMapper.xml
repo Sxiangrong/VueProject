@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysPoliceEventMapper">
+    <resultMap type="SysPoliceEvent" id="SysPoliceEventResult">
+        <id     property="userId"         column="user_id"        />
+        <result property="deptId"          column="dept_id"          />
+        <result property="itemEvent"   column="item_event"  />
+        <result property="money"         column="money"         />
+        <result property="peopleAccount"  column="people_account" />
+        <result property="company"   column="company"  />
+        <result property="applyPeople"       column="apply_people"      />
+        <result property="writeTime"       column="write_time"      />
+        <result property="operation"        column="operation"       />
+    </resultMap>
+    <sql id="selectPolice" >
+        select user_id, dept_id, item_event, money, people_account, company, apply_people, write_time, state
+        from sys_police_event
+    </sql>
+
+    <insert id="insertPolice" parameterType="SysPoliceEvent" keyProperty="user_id">
+        insert into sys_police_event(
+        <if test="userId != null and userId != 0">user_id,</if>
+        <if test="deptId != null and deptId != 0">dept_id,</if>
+        <if test="itemEvent != null and itemEvent != ''">item_event,</if>
+        <if test="money != null and money != ''">money,</if>
+        <if test="peopleAccount != null and peopleAccount != ''">people_account,</if>
+        <if test="company != null and company != ''">company,</if>
+        <if test="applyPeople != null and applyPeople != ''">apply_people,</if>
+        write_time
+        )values(
+        <if test="userId != null and userId != ''">#{userId},</if>
+        <if test="deptId != null and deptId != ''">#{deptId},</if>
+        <if test="itemEvent != null and itemEvent != ''">#{itemEvent},</if>
+        <if test="money != null and money != ''">#{money},</if>
+        <if test="peopleAccount != null and peopleAccount != ''">#{peopleAccount},</if>
+        <if test="company != null and company != ''">#{company},</if>
+        <if test="applyPeople != null and applyPeople != ''">#{applyPeople},</if>
+        sysdate()
+        )
+    </insert>
+    <select id="selectPoliceAll" resultMap="SysPoliceEventResult">
+        select *
+        from sys_police_event
+    </select>
+    <select id="selectPoliceByKeys" parameterType="String" resultMap="SysPoliceEventResult">
+        <include refid="selectPolice"/>
+        from sys_police_event
+        where item_event= #{itemEvent} and company=#{company} and write_time=#{writeTime}
+    </select>
+
+    <update id="updateEvent" parameterType="SysPoliceEvent">
+        update sys_police_event
+        <set>
+            <if test="userId != null and userId != ''">user_id=#{userId},</if>
+            <if test="deptId != null and deptId != ''">dept_id=#{deptId},</if>
+            <if test="itemEvent != null and itemEvent != ''">item_event=#{itemEvent},</if>
+            <if test="money != null and money != ''">money=#{money},</if>
+            <if test="peopleAccount != null and peopleAccount != ''">people_account=#{peopleAccount},</if>
+            <if test="company != null and company != ''">company=#{company},</if>
+            <if test="applyPeople != null and applyPeople != ''">apply_people=#{applyPeople},</if>
+            <if test="state != null and state != ''">state=#{state},</if>
+            write_time = sysdate()
+        </set>
+        where user_id = #{userId}
+    </update>
+    <select id="selectByUserId" parameterType="Long" resultMap="SysPoliceEventResult">
+        <include refid="selectPolice"/>
+        where dept_id=#{deptId}
+    </select>
+</mapper>
